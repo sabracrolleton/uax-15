@@ -1,5 +1,5 @@
 ;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: CL-USER; -*-
 
-(defpackage :saslprep-tests
-  (:use :common-lisp :fiveam :saslprep)
+(defpackage :uax-15-tests
+  (:use :common-lisp :fiveam :uax-15)
   (:export #:run))
