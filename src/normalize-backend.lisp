@@ -23,8 +23,8 @@
        (n-count (* v-count t-count))
        (s-count (* l-count n-count)))
   ;; split
-  (defun decompose-hangul-char (ch &aux (cd (char-code ch)))
-    (let ((s-index (- cd s-base)))
+  (defun decompose-hangul-char (ch)
+    (let ((s-index (- ch s-base)))
       (unless (<= 0 s-index (1- s-count))
         (return-from decompose-hangul-char (list ch)))
 
@@ -32,45 +32,45 @@
             (vc (+ v-base (floor (mod s-index n-count) t-count)))
             (tc (+ t-base (mod s-index t-count))))
         (if (/= tc t-base)
-            (list (code-char lc) (code-char vc) (code-char tc))
-          (list (code-char lc) (code-char vc))))))
+            (list lc vc tc)
+          (list lc vc)))))
 
   ;; synthesis
   (defun compose-hangul (str &aux (len (length str)))
     (if (zerop len)
         str
-      (let* ((last (char str 0))
+      (let* ((last (aref str 0))
              (new-chars (list last)))
         (loop for i from 1 below len
-              for ch = (char str i)
-              for l-index = (- (char-code last) l-base)
-              for s-index = (- (char-code last) s-base)
+              for ch = (aref str i)
+              for l-index = (- last l-base)
+              for s-index = (- last s-base)
           DO
           (tagbody
            ;; 1. check to see if two current characters are L and V
            (when (<= 0 l-index (1- l-count))
-             (let ((v-index (- (char-code ch) v-base)))
+             (let ((v-index (- ch v-base)))
                (when (<= 0 v-index (1- v-count))
                  ;; make syllable of form LV
                  (setf last
-                       (code-char (+ s-base (* (+ (* l-index v-count) v-index) t-count))))
+                       (+ s-base (* (+ (* l-index v-count) v-index) t-count)))
 		 (setf (car new-chars) last) ; reset last
                  (go :end))))                ; discard ch
 
            ;; 2. check to see if two current characters are LV and T
            (when (and (<= 0 s-index (1- s-count))
                       (zerop (mod s-index t-count)))
-             (let ((t-index (- (char-code ch) t-base)))
+             (let ((t-index (- ch t-base)))
                (when (< 0 t-index t-count)
                  ;; make syllable of form LVT
-                 (setf last (code-char (+ (char-code last) t-index)))
+                 (setf last (+ last t-index))
                  (setf (car new-chars) last) ; reset last
                  (go :end))))                ; discard ch
 
            ;; if neigher case was true, just add the character
            (push (setf last ch) new-chars)
            :end))
-        (coerce (nreverse new-chars) 'string)))))
+        (coerce (nreverse new-chars) 'unicode-string)))))
 
 (defun decompose (s type)
   (loop for c across s
@@ -78,7 +78,7 @@
       (mapcan #'decompose-hangul-char (decompose-char c type))
       into new-s
     finally
-      (return (coerce new-s 'string))))
+      (return (coerce new-s 'unicode-string))))
 
 (defun canonical-ordering (decomposed-string &aux (s decomposed-string))
   (let ((starter-indices
@@ -95,7 +95,7 @@
   (let* ((s decomposed-string)
          (to-cs (coerce s 'simple-vector)))
     (loop for i from 1 below (length s)
-          for ch-right  = (char s i)      ; right character
+          for ch-right  = (aref s i)      ; right character
           for ccc-right = (get-canonical-combining-class ch-right)
        do
       (loop for j from (1- i) downto 0
@@ -113,7 +113,7 @@
 
         (unless (< ccc-left ccc-right)
           (return))))
-    (compose-hangul (coerce (remove nil to-cs) 'string))))
+    (compose-hangul (coerce (remove nil to-cs) 'unicode-string))))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;;; NFD/NFKD/NFC/NFKC

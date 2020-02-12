@@ -10,7 +10,7 @@
   :description "Common lisp implementation of Unicode normalization functions :nfc, :nfd, :nfkc and :nfkd (Uax-15)"
   :author "Takeru Ohta, Sabra Crolleton <sabra.crolleton@gmail.com>"
   :license "MIT"
-  :depends-on ("split-sequence" "cl-ppcre" "uiop")
+  :depends-on ("trivial-utf-16" "split-sequence" "cl-ppcre" "uiop")
   :components
   ((:module "src"
             :components ((:file "package")

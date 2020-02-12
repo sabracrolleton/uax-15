@@ -18,14 +18,14 @@
       (compatible-decomp-map (make-hash-table))
       (canonical-combining-class (make-hash-table)))
   (loop for (1st _ __ 4th ___ 6th) in *unicode-data*
-        for char = (parse-hex-string-to-char 1st)
+        for char = (parse-hex-string-to-int 1st)
         for ccc  = (parse-integer 4th)
         for decomp-chars =
         (let ((tmp (cl-ppcre:split " " 6th)))
           (when tmp
             (if (char= #\< (char (first tmp) 0))
-                (cons :compatible (mapcar #'parse-hex-string-to-char (cdr tmp))) ; swap decomposition
-              (cons :canonical (mapcar #'parse-hex-string-to-char tmp)))))       ; formal decomposition
+                (cons :compatible (mapcar #'parse-hex-string-to-int (cdr tmp))) ; swap decomposition
+              (cons :canonical (mapcar #'parse-hex-string-to-int tmp)))))       ; formal decomposition
     do
     (when (plusp ccc)
       (setf (gethash char canonical-combining-class) ccc))
@@ -46,7 +46,7 @@
      while line
        when (and (plusp (length line))
                   (char/= (char line 0) #\#))
-         do (setf (gethash (parse-hex-string-to-char (subseq line 0 (position #\Space line)))
+         do (setf (gethash (parse-hex-string-to-int (subseq line 0 (position #\Space line)))
                            *composition-exclusions-data*)
                   t)))
 
