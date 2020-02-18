@@ -1,7 +1,7 @@
 ;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: CL-USER; -*-
 
 (defpackage :uax-15
-  (:use :common-lisp :trivial-utf-16)
+  (:use :common-lisp)
   (:export #:normalize
            #:get-mapping
            #:get-illegal-char-list
