@@ -65,7 +65,7 @@
                   (range (mapcar #'parse-hex-string-to-int (cl-ppcre:split "\\.\\." fst)))
                   (maybe? (and maybe-key (not (null (search maybe-key line))))))
              (loop for code from (first range) to (or (second range) (first range))
-                   for char = (code-char code)
+                   for char = code
                collect (list char maybe?)))))
     (with-open-file (in *derived-normalization-props-data-file*)
       (loop for line = (read-line in nil nil)
