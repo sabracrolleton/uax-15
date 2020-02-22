@@ -2,10 +2,10 @@
 
 This package provides a common lisp unicode normalization function using nfc, nfd, nfkc and nfkd as per Unicode Standard Annex #15 found at [http://www.unicode.org/reports/tr15/tr15-22.html](http://www.unicode.org/reports/tr15/tr15-22.html).
 
-This is a fork of a subset of work done by Takeru Ohta in 2010. Future work is intended to provide support for:
+This is a fork of a subset of work done by Takeru Ohta in 2010. Future work is intended to provide support for https://tools.ietf.org/html/rfc8264 and https://tools.ietf.org/html/rfc7564.
 
 # Implementation Notes
-This has been successfully tested on sbcl, ccl, ecl, abcl, allegro and cmucl  against the unicode test file found at [http://www.unicode.org/Public/UNIDATA/NormalizationTest.txt](http://www.unicode.org/Public/UNIDATA/NormalizationTest.txt)
+This has been successfully tested on sbcl, ccl, ecl, abcl, allegro and cmucl against the unicode test file found at [http://www.unicode.org/Public/UNIDATA/NormalizationTest.txt](http://www.unicode.org/Public/UNIDATA/NormalizationTest.txt)
 
 Clisp still has some issues. It has not been tested against lispworks or other common lisp implementations.
 
