@@ -9,9 +9,9 @@ found in:
 This is a fork of a subset of work done by Takeru Ohta in 2010. Future work is intended to provide support for:
 
 # Implementation Notes
-This has been tested on sbcl, ccl, ecl against the unicode test file found at [http://www.unicode.org/Public/UNIDATA/NormalizationTest.txt](http://www.unicode.org/Public/UNIDATA/NormalizationTest.txt)
+This has been successfully tested on sbcl, ccl, ecl, abcl, allegro and cmucl  against the unicode test file found at [http://www.unicode.org/Public/UNIDATA/NormalizationTest.txt](http://www.unicode.org/Public/UNIDATA/NormalizationTest.txt)
 
-Testing currently shows about a 8% failure rate on ABCL and Allegro. Further work needs to be done to determine the cause.
+Clisp still has some issues. It has not been tested against lispworks or other common lisp implementations.
 
 # Usage
 It has one major exported function:
@@ -35,8 +35,7 @@ Normalization example with reference to relevant xkcd [https://www.xkcd.com/936/
 
 
 # To Do list
-  * Review test failures in ABCL and Allegro
-  * All the things I do not understand yet
+  * Implement and validate against https://tools.ietf.org/html/rfc8264 and https://tools.ietf.org/html/rfc7564
   * Optimization?
 
 More relevant xkcd [https://xkcd.com/1726/](https://xkcd.com/1726/), [https://xkcd.com/1953/](https://xkcd.com/1953/), [https://www.xkcd.com/1209/](https://www.xkcd.com/1209/), [https://xkcd.com/1137/](https://xkcd.com/1137/)
