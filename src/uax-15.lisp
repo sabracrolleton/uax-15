@@ -6,10 +6,10 @@
   "Base external function which calls the appropriate normalization for the normalization form. The default normaliation form is :nfkc, but :nfd, :nfkd and :nfc are also available."
   (if (= rfc 3454)
       (ecase normalization-form
-           (:nfd  (nfd str))
-           (:nfkd (nfkd str))
-           (:nfc  (nfc str))
-           (:nfkc (nfkc str)))
+           (:nfd  (from-unicode-string (nfd (to-unicode-string str))))
+           (:nfkd (from-unicode-string (nfkd (to-unicode-string str))))
+           (:nfc  (from-unicode-string (nfc (to-unicode-string str))))
+           (:nfkc (from-unicode-string (nfkc (to-unicode-string str)))))
       (cerror "RFCs other than 3454 and 4013 not yet supported. Sorry" (format nil "~a" rfc))))
 
 (defun normalize-char (chr normalization-form)
@@ -65,7 +65,7 @@
                   (range (mapcar #'parse-hex-string-to-int (cl-ppcre:split "\\.\\." fst)))
                   (maybe? (and maybe-key (not (null (search maybe-key line))))))
              (loop for code from (first range) to (or (second range) (first range))
-                   for char = (code-char code)
+                   for char = code
                collect (list char maybe?)))))
     (with-open-file (in *derived-normalization-props-data-file*)
       (loop for line = (read-line in nil nil)

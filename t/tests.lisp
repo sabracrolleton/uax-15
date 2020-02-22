@@ -10,8 +10,8 @@
   (let* ((split-str (split-sequence:split-sequence #\Space str :remove-empty-subseqs t))
          (arry (make-array (length split-str))))
     (loop for x in split-str counting x into y do
-         (setf (aref arry (- y 1)) (parse-hex-string-to-char x)))
-    (coerce arry 'string)))
+         (setf (aref arry (- y 1)) (parse-hex-string-to-int x)))
+    (uax-15::from-unicode-string (coerce arry 'uax-15::unicode-string))))
 
 (defun parse-hex-string-to-int (str)
   "Parse a string which is a single character in hex to a decimal."
