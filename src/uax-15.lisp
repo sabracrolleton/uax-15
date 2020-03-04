@@ -6,19 +6,19 @@
   "Base external function which calls the appropriate normalization for the normalization form. The default normaliation form is :nfkc, but :nfd, :nfkd and :nfc are also available."
   (if (= rfc 3454)
       (ecase normalization-form
-           (:nfd  (from-unicode-string (nfd (to-unicode-string str))))
-           (:nfkd (from-unicode-string (nfkd (to-unicode-string str))))
-           (:nfc  (from-unicode-string (nfc (to-unicode-string str))))
-           (:nfkc (from-unicode-string (nfkc (to-unicode-string str)))))
+        (:nfd  (from-unicode-string (nfd (to-unicode-string str))))
+        (:nfkd (from-unicode-string (nfkd (to-unicode-string str))))
+        (:nfc  (from-unicode-string (nfc (to-unicode-string str))))
+        (:nfkc (from-unicode-string (nfkc (to-unicode-string str)))))
       (cerror "RFCs other than 3454 and 4013 not yet supported. Sorry" (format nil "~a" rfc))))
 
 (defun normalize-char (chr normalization-form)
-  "Runs normalize on a single character input. You must provide the normalization form (:nfd, :nfkd, :nfc, or :nfkc)"
+  "Runs normalize on a single character input and returns a single character string. You must provide the normalization form (:nfd, :nfkd, :nfc, or :nfkc)"
   (ecase normalization-form
-    (:nfd  (nfd (format nil "~a" chr)))
-    (:nfkd (nfkd (format nil "~a" chr)))
-    (:nfc  (nfc (format nil "~a" chr)))
-    (:nfkc (nfkc (format nil "~a" chr)))))
+    (:nfd  (from-unicode-string (nfd (to-unicode-string (format nil "~a" chr)))))
+    (:nfkd (from-unicode-string (nfkd (to-unicode-string (format nil "~a" chr)))))
+    (:nfc  (from-unicode-string (nfc (to-unicode-string (format nil "~a" chr)))))
+    (:nfkc (from-unicode-string (nfkc (to-unicode-string (format nil "~a" chr)))))))
 
 (defun get-mapping (normalization-form &aux (mapping '()))
   "Note no mapping for :nfkc"
