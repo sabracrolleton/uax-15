@@ -10,28 +10,8 @@
   (let* ((split-str (split-sequence:split-sequence #\Space str :remove-empty-subseqs t))
          (arry (make-array (length split-str))))
     (loop for x in split-str counting x into y do
-         (setf (aref arry (- y 1)) (parse-hex-string-to-int x)))
-    (uax-15::from-unicode-string (coerce arry 'uax-15::unicode-string))))
-
-(defun parse-hex-string-to-int (str)
-  "Parse a string which is a single character in hex to a decimal."
-  (parse-integer str :radix 16))
-
-(defun parse-hex-string-to-char (str)
-  "Parse a hex string which is a single character into a character using code-char."
-  (code-char (parse-hex-string-to-int str)))
-
-(defun int-to-hex-string (int)
-  (write-to-string int :base 16))
-
-(defun parse-hex-list-to-string (lst)
-  "Takes a list of numbers and returns a string of characters"
-  (let ((arry (make-array (length lst))))
-    (loop for x in lst counting x into y do
-         (setf (aref arry (- y 1)) (code-char x)))
-    (coerce arry 'string)))
-
-
+         (setf (aref arry (- y 1)) (parse-integer x :radix 16)))
+    (uax-15:from-unicode-string (coerce arry 'uax-15:unicode-string))))
 
 (defun hs-to-cs (str)
   "Syntactic sugar"
