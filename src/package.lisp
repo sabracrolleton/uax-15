@@ -5,4 +5,9 @@
   (:export #:normalize
            #:get-mapping
            #:get-illegal-char-list
-           #:get-canonical-combining-class-map))
+           #:get-canonical-combining-class-map
+           #:from-unicode-string
+           #:to-unicode-string
+           #:unicode-string
+           #:codepoint-as-utf-16
+           #:surrogates-to-codepoint))
