@@ -45,7 +45,7 @@
               for ch = (aref str i)
               for l-index = (- last l-base)
               for s-index = (- last s-base)
-          DO
+          do
           (tagbody
            ;; 1. check to see if two current characters are L and V
            (when (<= 0 l-index (1- l-count))
@@ -101,7 +101,7 @@
       (loop for j from (1- i) downto 0
             for ch-left  = (aref to-cs j) ; left character
             for ccc-left = (and ch-left (get-canonical-combining-class ch-left))
-            WHEN ch-left
+            when ch-left
          do
         (when (zerop ccc-left)
           ;; ch-left + ch-right  if there is a composite character ch-left replace
