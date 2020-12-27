@@ -19,7 +19,7 @@
                          (:file "precomputed-tables" :depends-on ("package" "utilities"))
                          (:file "normalize-backend" :depends-on ("package" "utilities" "precomputed-tables" "trivial-utf-16"))
                          (:file "uax-15" :depends-on ("package" "utilities" "normalize-backend" "trivial-utf-16")))))
-  :in-order-to ((test-op (test-op "t/tests"))))
+  :in-order-to ((test-op (test-op "uax-15/tests"))))
 
 (defsystem "uax-15/tests"
   :depends-on ("uax-15" "fiveam" "uiop" "cl-ppcre" "split-sequence")
