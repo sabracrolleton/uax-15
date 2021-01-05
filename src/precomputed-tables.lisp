@@ -9,7 +9,7 @@
 
 
 (defvar *unicode-data*
-  (with-open-file (in (uiop:merge-pathnames* *data-directory* "UnicodeData.txt") :external-format :ISO-8859-1)
+  (with-open-file (in (uiop:merge-pathnames* *data-directory* "UnicodeData.txt") :external-format :UTF-8)
     (loop for line = (read-line in nil nil)
        while line
        collect (cl-ppcre:split ";" line))))
@@ -41,7 +41,7 @@
 
 
 (defparameter *composition-exclusions-data* (make-hash-table))
-(with-open-file (in (uiop:merge-pathnames* *data-directory* "CompositionExclusions.txt" :external-format :ISO-8859-1))
+(with-open-file (in (uiop:merge-pathnames* *data-directory* "CompositionExclusions.txt" :external-format :UTF-8))
   (loop for line = (read-line in nil nil)
      while line
        when (and (plusp (length line))
