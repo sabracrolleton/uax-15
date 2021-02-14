@@ -67,7 +67,8 @@
              (loop for code from (first range) to (or (second range) (first range))
                    for char = code
                collect (list char maybe?)))))
-    (with-open-file (in *derived-normalization-props-data-file* :external-format :UTF-8)
+    (with-open-file (in *derived-normalization-props-data-file*
+                        #-:lispworks :external-format #-:lispworks :UTF-8)
       (loop for line = (read-line in nil nil)
             while line
         do
