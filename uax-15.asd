@@ -23,7 +23,7 @@
   :in-order-to ((test-op (test-op "uax-15/tests"))))
 
 (defsystem "uax-15/tests"
-  :depends-on ("uax-15" "fiveam" "uiop" "cl-ppcre" "split-sequence")
+  :depends-on ("uax-15" "parachute" "uiop" "cl-ppcre" "split-sequence")
   :components
   ((:module "src"
             :components ((:file "trivial-utf-16")))
@@ -32,4 +32,4 @@
             :components ((:file "test-package")
                          (:file "tests"))))
   :perform (test-op (o c)
-             (uiop:symbol-call :fiveam '#:run! :uax-15)))
+             (uiop:symbol-call :parachute '#:test 'suite :report 'quiet)))

@@ -1,9 +1,7 @@
 ;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: UAX-15-TESTS; -*-
 (in-package :uax-15-tests)
 
-(fiveam:def-suite :uax-15
-    :description "Test suite for uax-15")
-(fiveam:in-suite :uax-15)
+(define-test uax-15)
 
 (defun parse-hex-string-to-string (str)
   "Takes a string which may be one or more hex numbers e.g. '0044 0307', builds an array of characters, coerces to string and returns the string. Mostly used for testing."
@@ -34,122 +32,145 @@
          (format t "Failure Line ~a ~a fourth should equal normalized first" y x)
          (return-from first-failure))))
 
-(test part0-nfkc
-  (loop for x in (read-test-data "test-part0.txt") do
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (first x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (second x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (third x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfkc)))))
+(defparameter *part0* (read-test-data "test-part0.txt"))
+(defparameter *part1* (read-test-data "test-part1.txt"))
+(defparameter *part2* (read-test-data "test-part2.txt"))
+(defparameter *part3* (read-test-data "test-part3.txt"))
 
-(test part1-nfkc
-  (loop for x in (read-test-data "test-part1.txt") do
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (first x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (second x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (third x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfkc)))))
+(define-test suite)
 
-(test part2-nfkc
-  (loop for x in (read-test-data "test-part2.txt") do
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (first x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (second x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (third x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfkc)))))
+(define-test part0-nfkc
+    :parent suite
+  (loop for x in *part0* do
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (first x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (second x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (third x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfkc)))))
 
-(test part3-nfkc
-  (loop for x in (read-test-data "test-part3.txt") do
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (first x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (second x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (third x)) :nfkc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfkc)))))
+(define-test part1-nfkc
+    :parent suite
+    (loop for x in *part1* do
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (first x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (second x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (third x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfkc)))))
 
-(test part0-nfkd
-  (loop for x in (read-test-data "test-part0.txt") do
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (first x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (second x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (third x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfkd)))))
+(define-test part2-nfkc
+    :parent suite
+  (loop for x in *part2* do
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (first x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (second x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (third x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfkc)))))
 
-(test part1-nfkd
-  (loop for x in (read-test-data "test-part1.txt") do
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (first x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (second x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (third x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfkd)))))
+(define-test part3-nfkc
+    :parent suite
+    (loop for x in *part3* do
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (first x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (second x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (third x)) :nfkc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfkc)))))
 
-(test part2-nfkd
-  (loop for x in (read-test-data "test-part2.txt") do
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (first x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (second x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (third x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfkd)))))
+(define-test part0-nfkd
+    :parent suite
+  (loop for x in *part0* do
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (first x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (second x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (third x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfkd)))))
 
-(test part3-nfkd
-  (loop for x in (read-test-data "test-part3.txt") do
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (first x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (second x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (third x)) :nfkd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfkd)))))
+(define-test part1-nfkd
+    :parent suite
+  (loop for x in *part1* do
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (first x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (second x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (third x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfkd)))))
 
-(test part0-nfc
-  (loop for x in (read-test-data "test-part0.txt") do
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (first x)) :nfc)))
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (second x)) :nfc)))
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (third x)) :nfc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fourth x)) :nfc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfc)))))
+(define-test part2-nfkd
+    :parent suite
+  (loop for x in *part2* do
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (first x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (second x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (third x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfkd)))))
 
-(test part1-nfc
-  (loop for x in (read-test-data "test-part1.txt") do
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (first x)) :nfc)))
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (second x)) :nfc)))
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (third x)) :nfc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fourth x)) :nfc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfc)))))
+(define-test part3-nfkd
+        :parent suite
+  (loop for x in *part3* do
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (first x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (second x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (third x)) :nfkd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfkd)))))
 
-(test part2-nfc
-  (loop for x in (read-test-data "test-part2.txt") do
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (first x)) :nfc)))
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (second x)) :nfc)))
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (third x)) :nfc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fourth x)) :nfc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfc)))))
+(define-test part0-nfc
+    :parent suite
+  (loop for x in *part0* do
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (first x)) :nfc)))
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (second x)) :nfc)))
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (third x)) :nfc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fourth x)) :nfc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfc)))))
 
-(test part3-nfc
-  (loop for x in (read-test-data "test-part3.txt") do
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (first x)) :nfc)))
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (second x)) :nfc)))
-       (is (equal (hs-to-cs (second x)) (normalize (hs-to-cs (third x)) :nfc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fourth x)) :nfc)))
-       (is (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfc)))))
+(define-test part1-nfc
+    :parent suite
+  (loop for x in *part1* do
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (first x)) :nfc)))
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (second x)) :nfc)))
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (third x)) :nfc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fourth x)) :nfc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfc)))))
 
-(test part0-nfd
-  (loop for x in (read-test-data "test-part0.txt") do
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (first x)) :nfd)))
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (second x)) :nfd)))
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (third x)) :nfd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fifth x)) :nfd)))))
+(define-test part2-nfc
+    :parent suite
+  (loop for x in *part2* do
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (first x)) :nfc)))
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (second x)) :nfc)))
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (third x)) :nfc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fourth x)) :nfc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfc)))))
 
-(test part1-nfd
-      (loop for x in (read-test-data "test-part1.txt") do
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (first x)) :nfd)))
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (second x)) :nfd)))
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (third x)) :nfd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fifth x)) :nfd)))))
+(define-test part3-nfc
+    :parent suite
+  (loop for x in *part3* do
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (first x)) :nfc)))
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (second x)) :nfc)))
+       (true (equal (hs-to-cs (second x)) (normalize (hs-to-cs (third x)) :nfc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fourth x)) :nfc)))
+       (true (equal (hs-to-cs (fourth x)) (normalize (hs-to-cs (fifth x)) :nfc)))))
 
-(test part2-nfd
-  (loop for x in (read-test-data "test-part2.txt") do
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (first x)) :nfd)))
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (second x)) :nfd)))
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (third x)) :nfd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fifth x)) :nfd)))))
+(define-test part0-nfd
+    :parent suite
+  (loop for x in *part0* do
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (first x)) :nfd)))
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (second x)) :nfd)))
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (third x)) :nfd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fifth x)) :nfd)))))
 
-(test part3-nfd
-  (loop for x in (read-test-data "test-part3.txt") do
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (first x)) :nfd)))
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (second x)) :nfd)))
-       (is (equal (hs-to-cs (third x)) (normalize (hs-to-cs (third x)) :nfd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfd)))
-       (is (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fifth x)) :nfd)))))
+(define-test part1-nfd
+    :parent suite
+      (loop for x in *part1* do
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (first x)) :nfd)))
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (second x)) :nfd)))
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (third x)) :nfd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fifth x)) :nfd)))))
+
+(define-test part2-nfd
+        :parent suite
+  (loop for x in *part2* do
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (first x)) :nfd)))
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (second x)) :nfd)))
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (third x)) :nfd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fifth x)) :nfd)))))
+
+(define-test part3-nfd
+        :parent suite
+  (loop for x in *part3* do
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (first x)) :nfd)))
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (second x)) :nfd)))
+       (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (third x)) :nfd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfd)))
+       (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fifth x)) :nfd)))))
