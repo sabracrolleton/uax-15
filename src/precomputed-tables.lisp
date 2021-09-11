@@ -1,4 +1,4 @@
-;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: CL-POSTGRES; -*-
+;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: UAX-15 -*-
 (in-package :uax-15)
 
 (defparameter *data-directory* (uiop:merge-pathnames*
@@ -10,7 +10,7 @@
 
 (defvar *unicode-data*
   (with-open-file (in (uiop:merge-pathnames* *data-directory* "UnicodeData.txt")
-                      #-:lispworks :external-format #-:lispworks :UTF-8)
+                      #-(or :lispworks :genera) :external-format #-(or :lispworks :genera) :UTF-8)
     (loop for line = (read-line in nil nil)
        while line
        collect (cl-ppcre:split ";" line))))
@@ -43,7 +43,7 @@
 
 (defparameter *composition-exclusions-data* (make-hash-table))
 (with-open-file (in (uiop:merge-pathnames* *data-directory* "CompositionExclusions.txt")
-                    #-:lispworks :external-format #-:lispworks :UTF-8)
+		    #-(or :lispworks :genera) :external-format #-(or :lispworks :genera) :UTF-8)
   (loop for line = (read-line in nil nil)
      while line
        when (and (plusp (length line))
