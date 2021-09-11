@@ -1,4 +1,4 @@
-;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; -*-
+;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: CL-USER -*-
 
 (defpackage :uax-15-system
   (:use :common-lisp :asdf))
@@ -10,7 +10,7 @@
   :description "Common lisp implementation of Unicode normalization functions :nfc, :nfd, :nfkc and :nfkd (Uax-15)"
   :author "Takeru Ohta, Sabra Crolleton <sabra.crolleton@gmail.com>"
   :license "MIT"
-  :version "v0.1"
+  :version "0.1"
   :depends-on ("split-sequence" "cl-ppcre" "uiop")
   :components
   ((:module "src"
@@ -32,4 +32,6 @@
             :components ((:file "test-package")
                          (:file "tests"))))
   :perform (test-op (o c)
-             (uiop:symbol-call :parachute '#:test 'suite :report 'quiet)))
+		    (uiop:symbol-call :parachute '#:test (uiop:find-symbol* 'suite :uax-15-tests)
+				      :report (uiop:find-symbol* 'quiet :parachute))))
+
