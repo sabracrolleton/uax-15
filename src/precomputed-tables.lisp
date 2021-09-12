@@ -52,13 +52,14 @@
                            *composition-exclusions-data*)
                   t)))
 
-(let ((canonical-comp-map (make-hash-table :test #'equal)))
-  (maphash
-   (lambda (src-char decomped-chars)
-     (when (and (= 2 (length decomped-chars))
-                (not (gethash src-char *composition-exclusions-data*)))
-       (setf (gethash (coerce decomped-chars 'list)
-                      canonical-comp-map)
-             src-char)))
-   *canonical-decomp-map*)
-  (defparameter *canonical-comp-map* canonical-comp-map))
+(defparameter *canonical-comp-map*
+  (let ((canonical-comp-map (make-hash-table :test #'equal)))
+    (maphash
+     (lambda (src-char decomped-chars)
+       (when (and (= 2 (length decomped-chars))
+                  (not (gethash src-char *composition-exclusions-data*)))
+	 (setf (gethash (coerce decomped-chars 'list)
+			canonical-comp-map)
+               src-char)))
+     *canonical-decomp-map*)))
+

@@ -1,10 +1,4 @@
-;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: CL-USER -*-
-
-(defpackage :uax-15-system
-  (:use :common-lisp :asdf))
-(in-package :uax-15-system)
-
-(defparameter *string-file* "strings-utf-8")
+;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: ASDF -*-
 
 (defsystem "uax-15"
   :description "Common lisp implementation of Unicode normalization functions :nfc, :nfd, :nfkc and :nfkd (Uax-15)"
@@ -32,6 +26,9 @@
             :components ((:file "test-package")
                          (:file "tests"))))
   :perform (test-op (o c)
-		    (uiop:symbol-call :parachute '#:test (uiop:find-symbol* 'suite :uax-15-tests)
-				      :report (uiop:find-symbol* 'quiet :parachute))))
+		    (symbol-call :parachute '#:test (find-symbol* 'suite :uax-15-tests)
+				      :report (find-symbol* 'quiet :parachute))))
+
+		    ;; (uiop:symbol-call :parachute '#:test (uiop:find-symbol* 'suite :uax-15-tests)
+		    ;; 		      :report (uiop:find-symbol* 'quiet :parachute))))
 
