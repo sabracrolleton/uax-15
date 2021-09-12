@@ -29,6 +29,4 @@
 		    (symbol-call :parachute '#:test (find-symbol* 'suite :uax-15-tests)
 				      :report (find-symbol* 'quiet :parachute))))
 
-		    ;; (uiop:symbol-call :parachute '#:test (uiop:find-symbol* 'suite :uax-15-tests)
-		    ;; 		      :report (uiop:find-symbol* 'quiet :parachute))))
 
