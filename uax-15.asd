@@ -1,17 +1,11 @@
-;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; -*-
-
-(defpackage :uax-15-system
-  (:use :common-lisp :asdf))
-(in-package :uax-15-system)
-
-(defparameter *string-file* "strings-utf-8")
+;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: ASDF -*-
 
 (defsystem "uax-15"
   :description "Common lisp implementation of Unicode normalization functions :nfc, :nfd, :nfkc and :nfkd (Uax-15)"
   :author "Takeru Ohta, Sabra Crolleton <sabra.crolleton@gmail.com>"
   :license "MIT"
-  :version "v0.1"
-  :depends-on ("split-sequence" "cl-ppcre" "uiop")
+  :version "0.1"
+  :depends-on ("split-sequence" "cl-ppcre")
   :components
   ((:module "src"
             :components ((:file "package")
@@ -23,7 +17,7 @@
   :in-order-to ((test-op (test-op "uax-15/tests"))))
 
 (defsystem "uax-15/tests"
-  :depends-on ("uax-15" "parachute" "uiop" "cl-ppcre" "split-sequence")
+  :depends-on ("uax-15" "parachute" "cl-ppcre" "split-sequence")
   :components
   ((:module "src"
             :components ((:file "trivial-utf-16")))
@@ -32,4 +26,7 @@
             :components ((:file "test-package")
                          (:file "tests"))))
   :perform (test-op (o c)
-             (uiop:symbol-call :parachute '#:test 'suite :report 'quiet)))
+		    (symbol-call :parachute '#:test (find-symbol* 'suite :uax-15-tests)
+				      :report (find-symbol* 'quiet :parachute))))
+
+

@@ -1,5 +1,4 @@
-;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: CL-POSTGRES; -*-
-
+;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: UAX-15 -*-
 (in-package :uax-15)
 
 (defun normalize (str normalization-form &key (rfc 3454))
@@ -68,7 +67,7 @@
                    for char = code
                collect (list char maybe?)))))
     (with-open-file (in *derived-normalization-props-data-file*
-                        #-:lispworks :external-format #-:lispworks :UTF-8)
+                      #-(or :lispworks :genera) :external-format #-(or :lispworks :genera) :UTF-8)
       (loop for line = (read-line in nil nil)
             while line
         do

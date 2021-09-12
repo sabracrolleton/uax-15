@@ -1,4 +1,4 @@
-;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: UAX-15-TESTS; -*-
+;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: UAX-15-TESTS -*-
 (in-package :uax-15-tests)
 
 (define-test uax-15)
