@@ -5,7 +5,7 @@
   :author "Takeru Ohta, Sabra Crolleton <sabra.crolleton@gmail.com>"
   :license "MIT"
   :version "0.1"
-  :depends-on ("split-sequence" "cl-ppcre" "uiop")
+  :depends-on ("split-sequence" "cl-ppcre")
   :components
   ((:module "src"
             :components ((:file "package")
@@ -17,7 +17,7 @@
   :in-order-to ((test-op (test-op "uax-15/tests"))))
 
 (defsystem "uax-15/tests"
-  :depends-on ("uax-15" "parachute" "uiop" "cl-ppcre" "split-sequence")
+  :depends-on ("uax-15" "parachute" "cl-ppcre" "split-sequence")
   :components
   ((:module "src"
             :components ((:file "trivial-utf-16")))
