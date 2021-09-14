@@ -6,6 +6,11 @@
     (#x110000 (pushnew :utf-32 *features*))
     (t (error "Unexpected char-code-limit; Unicode support seems unlikely."))))
 
+(defun unicode-point-p (p)
+  (and (integerp p)
+       (>= p 0)
+       (<= p #x10FFFF)))
+
 (deftype high-surrogate ()
   "A Unicode High Surrogate."
   '(integer #xD800 #xDBFF))
@@ -16,11 +21,16 @@
 
 (deftype unicode-point ()
   "A Unicode code point."
-  '(integer 0 #x10FFFF))
+  '(and (integer 0 #x10FFFF)
+    (satisfies unicode-point-p)))
 
 (deftype unicode-string ()
   "A vector of Unicode code points."
   '(vector unicode-point))
+
+(defun codepoint-to-unicode-point (int)
+  "Translates an integer to a unicode-point"
+  (coerce int 'unicode-point))
 
 (defun codepoint-as-utf-16 (codepoint)
   "Translate a Unicode code point to its UTF-16 representation. Returns a list of one or two codepoints. Passes surrogate code points straight through."
