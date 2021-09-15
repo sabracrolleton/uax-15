@@ -174,3 +174,13 @@
        (true (equal (hs-to-cs (third x)) (normalize (hs-to-cs (third x)) :nfd)))
        (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fourth x)) :nfd)))
        (true (equal (hs-to-cs (fifth x)) (normalize (hs-to-cs (fifth x)) :nfd)))))
+
+(define-test unicode-letters
+  :parent suite
+  (true (every #'unicode-letter-p "새우"))
+  (true (every #'unicode-letter-p "이해"))
+  (false (every #'unicode-letter-p "zAp2"))
+  (true (every #'unicode-letter-p "タイムゾーン"))
+  (true (every #'unicode-letter-p "タイムゾーン"))
+  (true (every #'unicode-letter-p "时区"))
+  (true (every #'unicode-letter-p "時區")))

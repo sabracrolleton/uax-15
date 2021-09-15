@@ -10,4 +10,5 @@
            #:to-unicode-string
            #:unicode-string
            #:codepoint-as-utf-16
-           #:surrogates-to-codepoint))
+           #:surrogates-to-codepoint
+           #:unicode-letter-p))

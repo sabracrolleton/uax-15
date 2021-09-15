@@ -68,7 +68,8 @@
                    for char = code
                collect (list char maybe?)))))
     (with-open-file (in *derived-normalization-props-data-file*
-                        #-:lispworks :external-format #-:lispworks :UTF-8)
+                        #-(or :lispworks :genera :clisp) :external-format
+                        #-(or :lispworks :genera :clisp) :UTF-8)
       (loop for line = (read-line in nil nil)
             while line
         do
@@ -88,3 +89,8 @@
       (:nfkd nfkd-illegal-list)
       (:nfc  nfc-illegal-list)
       (:nfkc nfkc-illegal-list))))
+
+(defun unicode-letter-p (char)
+  "Returns T if the character is one of the unicode characters falling into a letter category: uppercase, lowercase, titlecase, modifier and other."
+  (when (gethash char *unicode-letters*)
+    t))
