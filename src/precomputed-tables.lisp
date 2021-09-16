@@ -69,9 +69,10 @@
 (loop for x in uax-15::*unicode-data*
       do
       (when (member (third x) '("Ll" "Lu" "Lm" "Lt" "Lo") :test 'equal)
-        (setf (gethash (code-char (parse-integer (first x) :radix 16))
-                       *unicode-letters*)
-              (third x))))
+        (let ((char (char-from-hexstring (first x))))
+          (setf (gethash char
+                         *unicode-letters*)
+                      (third x)))))
 (loop for code from #x3400 below #x4DB5 ; CJK Ideograph Extension A
       do
       (setf (gethash (code-char code) *unicode-letters*) "Lo"))
@@ -83,27 +84,27 @@
       do
       (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-(loop for code from #x17000 below #x187F7 ; Tangut Ideograph
+#-utf-16 (loop for code from #x17000 below #x187F7 ; Tangut Ideograph
       do
       (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-(loop for code from #x20000 below #x2A6D6 ; CJK Ideograph Extension B
+#-utf-16 (loop for code from #x20000 below #x2A6D6 ; CJK Ideograph Extension B
       do
       (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-(loop for code from #x2A700 below #x2B734 ; CJK Ideograph Extension C
+#-utf-16 (loop for code from #x2A700 below #x2B734 ; CJK Ideograph Extension C
       do
       (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-(loop for code from #x2B740 below #x2B81D ; CJK Ideograph Extension D
+#-utf-16 (loop for code from #x2B740 below #x2B81D ; CJK Ideograph Extension D
       do
       (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-(loop for code from #x2B820 below #x2CEA1 ; CJK Ideograph Extension E
+#-utf-16 (loop for code from #x2B820 below #x2CEA1 ; CJK Ideograph Extension E
       do
       (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-(loop for code from #x2CEB0 below #x2EBE0 ; CJK Ideograph Extension F
+#-utf-16 (loop for code from #x2CEB0 below #x2EBE0 ; CJK Ideograph Extension F
       do
       (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 

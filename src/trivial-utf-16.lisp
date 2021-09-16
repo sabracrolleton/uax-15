@@ -94,3 +94,15 @@
       (setf (aref unicode-string i) (char-code (aref lisp-string i))))
     #+utf-16 (setf unicode-string (decode-utf-16 unicode-string))
     unicode-string))
+
+(defun char-from-hexstring (hexpoint-str)
+  "Translating characters from *unicode-data* hex codepoint string to lisp character"
+  (let ((char #+utf-32 (parse-hex-string-to-char hexpoint-str)
+              #+utf-16 (aref
+                        (from-unicode-string
+                         (coerce
+                          (codepoint-as-utf-16
+                           (parse-integer hexpoint-str :radix 16))
+                          'vector))
+                        0)))
+    char))
