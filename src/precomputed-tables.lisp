@@ -1,4 +1,4 @@
-;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: CL-POSTGRES; -*-
+;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: UAX-15 -*-
 (in-package :uax-15)
 
 (defparameter *data-directory* (uiop:merge-pathnames*

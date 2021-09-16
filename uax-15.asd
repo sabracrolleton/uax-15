@@ -1,10 +1,4 @@
-;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; -*-
-
-(defpackage :uax-15-system
-  (:use :common-lisp :asdf))
-(in-package :uax-15-system)
-
-(defparameter *string-file* "strings-utf-8")
+;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: ASDF -*-
 
 (defsystem "uax-15"
   :description "Common lisp implementation of Unicode normalization functions :nfc, :nfd, :nfkc and :nfkd (Uax-15)"
