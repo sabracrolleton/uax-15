@@ -1,4 +1,5 @@
-;;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: UAX-15 -*-
+;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: UAX-15 -*-
+
 (in-package :uax-15)
 
 (define-condition bad-char-error (error)
