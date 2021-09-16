@@ -54,60 +54,57 @@
                            *composition-exclusions-data*)
                   t)))
 
-(let ((canonical-comp-map (make-hash-table :test #'equal)))
-  (maphash
+(defparameter *canonical-comp-map* (make-hash-table :test #'equal))
+(maphash
    (lambda (src-char decomped-chars)
      (when (and (= 2 (length decomped-chars))
                 (not (gethash src-char *composition-exclusions-data*)))
        (setf (gethash (coerce decomped-chars 'list)
-                      canonical-comp-map)
+                      *canonical-comp-map*)
              src-char)))
    *canonical-decomp-map*)
-  (defparameter *canonical-comp-map* canonical-comp-map))
 
-(let ((letter-map (make-hash-table :size 170000)))
-  (loop for x in uax-15::*unicode-data*
+(defparameter *unicode-letters* (make-hash-table :size 170000))
+(loop for x in uax-15::*unicode-data*
       do
       (when (member (third x) '("Ll" "Lu" "Lm" "Lt" "Lo") :test 'equal)
         (setf (gethash (code-char (parse-integer (first x) :radix 16))
-                       letter-map)
+                       *unicode-letters*)
               (third x))))
-  (loop for code from #x3400 below #x4DB5 ; CJK Ideograph Extension A
-    do
-     (setf (gethash (code-char code) letter-map) "Lo"))
-  (loop for code from #x4E00 below #x9FEF ; CJK Ideograph
-    do
-       (setf (gethash (code-char code) letter-map) "Lo"))
+(loop for code from #x3400 below #x4DB5 ; CJK Ideograph Extension A
+      do
+      (setf (gethash (code-char code) *unicode-letters*) "Lo"))
+(loop for code from #x4E00 below #x9FEF ; CJK Ideograph
+      do
+      (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-  (loop for code from #xAC00 below #xD7A3 ; Hangul Syllable
-    do
-       (setf (gethash (code-char code) letter-map) "Lo"))
+(loop for code from #xAC00 below #xD7A3 ; Hangul Syllable
+      do
+      (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-  (loop for code from #x17000 below #x187F7 ; Tangut Ideograph
-    do
-       (setf (gethash (code-char code) letter-map) "Lo"))
+(loop for code from #x17000 below #x187F7 ; Tangut Ideograph
+      do
+      (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-  (loop for code from #x20000 below #x2A6D6 ; CJK Ideograph Extension B
-    do
-       (setf (gethash (code-char code) letter-map) "Lo"))
+(loop for code from #x20000 below #x2A6D6 ; CJK Ideograph Extension B
+      do
+      (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-  (loop for code from #x2A700 below #x2B734 ; CJK Ideograph Extension C
-    do
-       (setf (gethash (code-char code) letter-map) "Lo"))
+(loop for code from #x2A700 below #x2B734 ; CJK Ideograph Extension C
+      do
+      (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-  (loop for code from #x2B740 below #x2B81D ; CJK Ideograph Extension D
-    do
-       (setf (gethash (code-char code) letter-map) "Lo"))
+(loop for code from #x2B740 below #x2B81D ; CJK Ideograph Extension D
+      do
+      (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-  (loop for code from #x2B820 below #x2CEA1 ; CJK Ideograph Extension E
-    do
-       (setf (gethash (code-char code) letter-map) "Lo"))
+(loop for code from #x2B820 below #x2CEA1 ; CJK Ideograph Extension E
+      do
+      (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
-  (loop for code from #x2CEB0 below #x2EBE0 ; CJK Ideograph Extension F
-    do
-       (setf (gethash (code-char code) letter-map) "Lo"))
-
-  (defparameter *unicode-letters* letter-map))
+(loop for code from #x2CEB0 below #x2EBE0 ; CJK Ideograph Extension F
+      do
+      (setf (gethash (code-char code) *unicode-letters*) "Lo"))
 
 #|
 Letter characters in ranges
