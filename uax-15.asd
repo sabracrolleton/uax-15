@@ -11,7 +11,7 @@
             :components ((:file "package")
                          (:file "utilities" :depends-on ("package"))
                          (:file "trivial-utf-16" :depends-on ("package"))
-                         (:file "precomputed-tables" :depends-on ("package" "utilities"))
+                         (:file "precomputed-tables" :depends-on ("package" "utilities" "trivial-utf-16"))
                          (:file "normalize-backend" :depends-on ("package" "utilities" "precomputed-tables" "trivial-utf-16"))
                          (:file "uax-15" :depends-on ("package" "utilities" "normalize-backend" "trivial-utf-16")))))
   :in-order-to ((test-op (test-op "uax-15/tests"))))
