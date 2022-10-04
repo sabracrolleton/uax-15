@@ -96,7 +96,7 @@
     unicode-string))
 
 (defun char-from-hexstring (hexpoint-str)
-  "Translating characters from *unicode-data* hex codepoint string to lisp character"
+  "Translating the first char from *unicode-data* hex codepoint string to a lisp character."
   (let ((char #+utf-32 (parse-hex-string-to-char hexpoint-str)
               #+utf-16 (aref
                         (from-unicode-string

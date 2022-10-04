@@ -33,10 +33,10 @@
          (format t "Failure Line ~a ~a fourth should equal normalized first" y x)
          (return-from first-failure))))
 
-(defparameter *part0* (read-test-data "test-part0.txt"))
-(defparameter *part1* (read-test-data "test-part1.txt"))
-(defparameter *part2* (read-test-data "test-part2.txt"))
-(defparameter *part3* (read-test-data "test-part3.txt"))
+(defparameter *part0* (read-test-data "test-part0-15.txt"))
+(defparameter *part1* (read-test-data "test-part1-15.txt"))
+(defparameter *part2* (read-test-data "test-part2-15.txt"))
+(defparameter *part3* (read-test-data "test-part3-15.txt"))
 
 (define-test suite)
 

@@ -3,7 +3,7 @@
 (in-package :uax-15)
 
 (defparameter *data-directory* (uiop:merge-pathnames*
-                                (make-pathname :directory (list :relative "data") :name nil :type nil)
+                                (make-pathname :directory (list :relative "unicode-15-data") :name nil :type nil)
                                 (asdf:system-source-directory (asdf:find-system 'uax-15 nil))))
 
 ;; http://www.unicode.org/L2/L1999/UnicodeData.html
