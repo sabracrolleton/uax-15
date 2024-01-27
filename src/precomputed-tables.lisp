@@ -17,6 +17,11 @@
        while line
        collect (cl-ppcre:split ";" line))))
 
+(defvar *canonical-decomp-map* nil)
+(defvar *compatible-decomp-map* nil)
+(defvar *canonical-combining-class* nil)
+(defparameter *composition-exclusions-data* (make-hash-table))
+
 (let ((canonical-decomp-map (make-hash-table))
       (compatible-decomp-map (make-hash-table))
       (canonical-combining-class (make-hash-table)))
@@ -24,26 +29,26 @@
         for char = (parse-hex-string-to-int 1st)
         for ccc  = (parse-integer 4th)
         for decomp-chars =
-        (let ((tmp (cl-ppcre:split " " 6th)))
-          (when tmp
-            (if (char= #\< (char (first tmp) 0))
-                (cons :compatible (mapcar #'parse-hex-string-to-int (cdr tmp))) ; swap decomposition
-              (cons :canonical (mapcar #'parse-hex-string-to-int tmp)))))       ; formal decomposition
-    do
-    (when (plusp ccc)
-      (setf (gethash char canonical-combining-class) ccc))
+                         (let ((tmp (cl-ppcre:split " " 6th)))
+                           (when tmp
+                             (if (char= #\< (char (first tmp) 0))
+                                 (cons :compatible (mapcar #'parse-hex-string-to-int (cdr tmp))) ; swap decomposition
+                                 (cons :canonical (mapcar #'parse-hex-string-to-int tmp))))) ; formal decomposition
+        do
+           (when (plusp ccc)
+             (setf (gethash char canonical-combining-class) ccc))
 
-    (when decomp-chars
-      (if (eq (car decomp-chars) :canonical)
-          (setf (gethash char canonical-decomp-map) (cdr decomp-chars))   ; formal decomposition
-        (setf (gethash char compatible-decomp-map) (cdr decomp-chars))))) ; swap decomposition
+           (when decomp-chars
+             (if (eq (car decomp-chars) :canonical)
+                 (setf (gethash char canonical-decomp-map) (cdr decomp-chars)) ; formal decomposition
+                 (setf (gethash char compatible-decomp-map) (cdr decomp-chars))))) ; swap decomposition
 
-  (defvar *canonical-decomp-map* canonical-decomp-map)
-  (defvar *compatible-decomp-map* compatible-decomp-map)
-  (defvar *canonical-combining-class* canonical-combining-class))
+  (setf *canonical-decomp-map* canonical-decomp-map)
+  (setf *compatible-decomp-map* compatible-decomp-map)
+  (setf *canonical-combining-class* canonical-combining-class))
 
 
-(defparameter *composition-exclusions-data* (make-hash-table))
+
 (with-open-file (in (uiop:merge-pathnames* *data-directory* "CompositionExclusions.txt")
                     #-(or :lispworks :genera :clisp) :external-format
                     #-(or :lispworks :genera :clisp) :UTF-8)
