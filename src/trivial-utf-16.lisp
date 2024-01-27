@@ -6,7 +6,7 @@
   (case char-code-limit
     (#x10000 (pushnew :utf-16 *features*))
     (#x110000 (pushnew :utf-32 *features*))
-    (t (error "Unexpected char-code-limit; Unicode support seems unlikely."))))
+    (t (error "Unexpected char-code-limit for utf-16 or utf-32; Unicode support for those systems seems unlikely."))))
 
 (defun unicode-point-p (p)
   (and (integerp p)
