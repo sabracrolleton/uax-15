@@ -2,7 +2,7 @@
 
 (defsystem "uax-15"
   :description "Common lisp implementation of Unicode normalization functions :nfc, :nfd, :nfkc and :nfkd (Uax-15)"
-  :author "Takeru Ohta, Sabra Crolleton <sabra.crolleton@gmail.com>"
+  :author "Takeru Ohta, Sabra Crolleton <sabra.crolleton@gmail.com>, Herbert Snorrason"
   :license "MIT"
   :version "0.1.3"
   :depends-on ("split-sequence" "cl-ppcre")
